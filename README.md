@@ -1,57 +1,70 @@
 # Real-World-Data-Visualization
 
-**Dataset:** Video Games Industry — 1,500 games, 2013–2023, 18 variables  
-**Story:** *"What separates good games from great games — and great games from blockbusters?"*
+**Dataset:** Video Game Sales — VGChartz (available on Kaggle)
+**Story:** *"What drives success in the video game industry?"*
 
 ---
 
 ## Dataset
 
-Modelled after Steam, Metacritic, and VGChartz industry statistics.  
-Sources: Steam annual reports, Metacritic score distributions, VGChartz global sales, Newzoo Global Games Market Report 2023.
+**Source:** `vgsales.csv` — VGChartz global video game sales data, available at:
+https://www.kaggle.com/datasets/gregorut/videogamesales
 
-**18 columns:** title, genre, platform, publisher, year, esrb_rating,
-metacritic_score, user_score, price_usd, global_sales_M, avg_playtime_hrs,
-peak_players, n_reviews, dlc_count, has_multiplayer, is_free_to_play,
-has_microtransactions, awards_nominated
+**16,327 records** (after removing rows with missing year) across **11 columns:**
+`Rank`, `Name`, `Platform`, `Year`, `Genre`, `Publisher`,
+`NA_Sales`, `EU_Sales`, `JP_Sales`, `Other_Sales`, `Global_Sales`
 
 ---
 
 ## Visualizations & Stories
 
-| # | Type | Key Insight |
-|---|------|-------------|
-| 1 | Correlation Heatmap | Metacritic score is the #1 predictor of sales; price predicts nothing |
-| 2 | Horizontal Bar (gap) | Horror & Fighting: players love them more; Strategy: critics see more depth |
-| 3 | Bubble Chart | No correlation between price and quality at any price point |
-| 4 | Histogram + CCDF | Power law: top 5% of games account for ~50% of total sales |
-| 5 | Horizontal Bar (log) | MMO/Sim: infinite games; Horror/Adventure: curated short experiences |
-| 6 | K-Means (3 panels) | 4 archetypes: Blockbusters, Niche Gems, Live Service, Indie Darlings |
+| # | Type | Story |
+|---|------|-------|
+| 1 | **Heatmap** | Japan is a Role-Playing market — completely different from NA and EU |
+| 2 | **Time Series** | Industry peaked in 2008 (Wii/DS era); mobile gaming disrupted it after 2010 |
+| 3 | **Distribution** | Power law: top 1% of games account for most of total sales |
+| 4 | **K-Means Cluster** | 4 hidden market archetypes: Global Hits, NA Dominators, Japan Exclusives, Niche Titles |
+| 5 | **Bar + Colormap** | Action leads in total volume; Platform has the best sales-per-title ratio |
 
 ---
 
 ## Structure
 
 ```
-task_c_videogames/
-├── dataset_generator.py    ← generates data/videogames.csv
-├── visualizations.py       ← all 6 plots + storytelling
+task_c/
+├── visualizations.py      ← all 5 plots, run this
 ├── data/
-│   └── videogames.csv
-├── plots/
-│   ├── viz1_correlation_heatmap.png
-│   ├── viz2_critics_vs_players.png
-│   ├── viz3_price_vs_metacritic.png
-│   ├── viz4_sales_power_law.png
-│   ├── viz5_playtime_by_genre.png
-│   └── viz6_game_archetypes.png
+│   └── vgsales.csv        ← dataset (download from Kaggle link above)
+├── plots/                 ← generated automatically on first run
+│   ├── viz1_heatmap_genre_region.png
+│   ├── viz2_sales_trend.png
+│   ├── viz3_sales_distribution.png
+│   ├── viz4_kmeans_archetypes.png
+│   └── viz5_genre_sales.png
 ├── requirements.txt
 └── README.md
 ```
 
+---
+
 ## Quick Start
 
 ```bash
+# 1. Download the dataset from Kaggle and place it in data/vgsales.csv
+
+# 2. Install dependencies
 pip install -r requirements.txt
+
+# 3. Run — generates all 5 plots in plots/
 python visualizations.py
 ```
+
+---
+
+## Key Findings
+
+- **Japan** consumes 27% of its gaming budget on Role-Playing games vs ~10% in NA/EU
+- The industry **peaked at 679M units** sold in 2008, then declined with the rise of mobile
+- **Top 1%** of games (≈163 titles) generate a disproportionate share of all sales — a classic power law
+- K-Means on regional sales recovers **4 natural market segments** without any labels
+- **Platform games** (Mario, Sonic) have the highest average sales per title despite fewer releases

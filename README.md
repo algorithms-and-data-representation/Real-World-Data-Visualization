@@ -1,4 +1,4 @@
-# Task C — Real World Data Visualization (10%)
+# Real-World-Data-Visualization
 
 **Dataset:** Video Games Industry — 1,500 games, 2013–2023, 18 variables  
 **Story:** *"What separates good games from great games — and great games from blockbusters?"*
